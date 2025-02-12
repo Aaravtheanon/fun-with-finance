@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Service Initiative: Financial Literacy for Support Staff</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* 
+      ================ COLOR PALETTE ================
+      Feel free to adjust these variables for your own style
+    */
+    :root {
+      --dark-bg: #0b1d2b;       /* Darkest background */
+      --dark-bg-alt: #102637;   /* Slightly lighter for sections */
+      --primary: #69D2E7;       /* Vibrant accent color */
+      --secondary: #F4A261;     /* Secondary accent color */
+      --highlight: #FFF176;     /* Additional highlight color */
+      --text-light: #fdfdfd;    /* Light text for dark backgrounds */
+      --heading-font: 'Playfair Display', serif;
+      --body-font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body-font);
+      background: linear-gradient(150deg, var(--dark-bg) 0%, var(--dark-bg-alt) 100%);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* ====== WAVES / SECTION DIVIDERS ====== */
+    .wave-top {
+      position: relative;
+    }
+    .wave-top::before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml,%3Csvg viewBox="0 0 500 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0.00,49.98 C269.20,158.83 271.14,-58.64 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" fill="%23ffffff"%3E%3C/path%3E%3C/svg%3E');
+      background-repeat: no-repeat;
+      background-size: cover;
+      transform: rotate(180deg);
+      opacity: 0.07;
+    }
+    .wave-bottom {
+      position: relative;
+    }
+    .wave-bottom::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: url('data:image/svg+xml,%3Csvg viewBox="0 0 500 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M-0.44,77.06 C149.99,150.00 351.64,-49.99 503.33,89.63 L500.00,0.00 L0.00,0.00 Z" fill="%23ffffff"%3E%3C/path%3E%3C/svg%3E');
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.07;
+    }
+
+    /* ====== NAVBAR ====== */
+    nav {
+      position: fixed;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+    }
+    nav .nav-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    nav .logo {
+      font-family: var(--heading-font);
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      color: var(--primary);
+    }
+    nav .menu {
+      display: flex;
+      gap: 1rem;
+    }
+    nav .menu a {
+      text-decoration: none;
+      color: var(--text-light);
+      position: relative;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+    nav .menu a:hover {
+      color: var(--highlight);
+    }
+
+    /* ====== HERO SECTION ====== */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      padding: 0 2rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--primary) 15%, transparent 40%);
+      opacity: 0.2;
+      animation: spin 25s linear infinite;
+      border-radius: 50%;
+    }
+    @keyframes spin {
+      0% {transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
+    }
+    .hero-content {
+      position: relative;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 3rem 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease;
+    }
+    .hero-content:hover {
+      transform: translateY(-6px);
+    }
+    .hero h1 {
+      font-family: var(--heading-font);
+      color: var(--highlight);
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .hero button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .hero button:hover {
+      background: #48bfd8;
+      transform: translateY(-3px);
+    }
+
+    /* ====== SECTION GENERIC ====== */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    section h2 {
+      font-family: var(--heading-font);
+      font-size: 2rem;
+      color: var(--highlight);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    section p {
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+
+    /* ====== CONTENT GRID ====== */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    @media screen and (min-width: 768px) {
+      .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .content-block {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      transition: transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      backdrop-filter: blur(6px);
+    }
+    .content-block:hover {
+      transform: translateY(-3px);
+    }
+    .content-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .content-block h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      font-size: 1.4rem;
+      font-family: var(--heading-font);
+    }
+
+    /* ====== TIMELINE SECTION ====== */
+    .timeline-section {
+      background: var(--dark-bg-alt);
+      color: #fff;
+    }
+    .timeline-container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      padding-top: 4rem;
+    }
+    .timeline-bar {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: var(--secondary);
+    }
+    .timeline-item {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 1rem;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
+      color: #fff;
+    }
+    .timeline-item h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-family: var(--heading-font);
+      color: var(--highlight);
+    }
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--secondary);
+      border-radius: 50%;
+      top: 1.5rem;
+    }
+    .timeline-item:nth-child(odd) {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    .timeline-item:nth-child(odd)::before {
+      right: -10px;
+    }
+    .timeline-item:nth-child(even) {
+      margin-left: auto;
+      margin-right: 0;
+    }
+    .timeline-item:nth-child(even)::before {
+      left: -10px;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background: #09131e;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+    footer p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    /* ====== SIMPLE FADE-IN ANIMATION WITH INTERSECTION OBSERVER ====== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Bright Futures</div>
+      <div class="menu">
+        <a href="#initiative">Initiative</a>
+        <a href="#why">Why</a>
+        <a href="#approach">Approach</a>
+        <a href="#actions">Actions</a>
+        <a href="#atl">ATL Skills</a>
+        <a href="#profiles">Learner Profiles</a>
+        <a href="#challenges">Challenges</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Service Initiative: Financial Literacy for Support Staff</h1>
+      <p>
+        Empowering school support staff with essential money-management skills:
+        budgeting, saving, and building financial security.
+      </p>
+      <a href="#initiative">
+        <button>Learn More</button>
+      </a>
+    </div>
+  </section>
+
+  <!-- INITIATIVE SECTION (with wave divider) -->
+  <div class="wave-bottom"></div>
+  <section id="initiative" class="wave-top wave-bottom">
+    <h2>Our Financial Empowerment Initiative</h2>
+    <div class="content-grid">
+      <!-- Full text block #1 -->
+      <div class="content-block">
+        <h3>What We Aim to Do</h3>
+        <p>
+          Our initiative educates the untrained workforce—specifically our school’s 
+          support staff—on the importance of financial literacy and its impact on daily life. 
+          We are committed to organizing and facilitating a dedicated workshop 
+          designed to provide practical financial education, offering valuable insights, 
+          interactive discussions, and expert guidance to help them make informed financial 
+          decisions and improve their overall financial well-being.
+        </p>
+      </div>
+      <!-- Full text block #2 -->
+      <div class="content-block">
+        <h3>Outcome</h3>
+        <p>
+          By focusing on essential money management skills such as budgeting, saving, and 
+          understanding financial security, we aspire to empower support staff to achieve 
+          greater stability and confidence in their financial future.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY WE CHOSE THIS INITIATIVE -->
+  <section id="why" class="wave-top wave-bottom">
+    <h2>Why We Chose This Initiative</h2>
+    <div class="content-grid">
+      <div class="content-block">
+        <p>
+          Our motivation for this initiative stems from a personal commitment 
+          to improving financial awareness. We recognize that many individuals, 
+          especially support staff, may not have access to essential financial 
+          education, leading to challenges in managing money effectively.
+        </p>
+      </div>
+      <div class="content-block">
+        <p>
+          By addressing this gap, we aim to empower them with the knowledge 
+          and skills needed to make informed financial decisions and achieve 
+          financial stability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH & PROCESS -->
+  <section id="approach" class="wave-top wave-bottom">
+    <h2>Our Approach and Process</h2>
+    <div class="content-grid">
+      <div class="content-block">
+        <h3>Research & Interviews</h3>
+        <p>
+          To better understand the financial literacy needs of our school’s support staff, 
+          we conducted interviews to assess their knowledge and financial challenges.
+        </p>
+      </div>
+      <div class="content-block">
+        <h3>Surveys & Feedback</h3>
+        <p>
+          We developed surveys to gather insights, and used this feedback to refine and 
+          tailor our program effectively.
+        </p>
+      </div>
+      <div class="content-block">
+        <h3>Workshop Development</h3>
+        <p>
+          Our primary initiative is a comprehensive workshop, supported by a 
+          language-friendly presentation designed to be accessible to both support 
+          staff and a wider audience, ensuring effective learning and engagement.
+        </p>
+      </div>
+      <div class="content-block">
+        <h3>Inclusive Presentation</h3>
+        <p>
+          We created materials that simplify complex financial concepts into approachable, 
+          interactive modules for enhanced understanding.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIONS & IMPLEMENTATION (TIMELINE) -->
+  <section id="actions" class="timeline-section wave-top wave-bottom">
+    <h2>Our Actions & Implementation</h2>
+    <div class="timeline-container">
+      <div class="timeline-bar"></div>
+      <!-- Timeline item #1 -->
+      <div class="timeline-item">
+        <h4>Targeted Campaigns</h4>
+        <p>
+          We launched targeted campaigns to raise awareness about the importance 
+          of financial literacy for school support staff.
+        </p>
+      </div>
+      <!-- Timeline item #2 -->
+      <div class="timeline-item">
+        <h4>Dedicated Workshop</h4>
+        <p>
+          Organized a dedicated workshop for our school’s support staff, providing 
+          clear and practical guidance on essential money management skills.
+        </p>
+      </div>
+      <!-- Timeline item #3 -->
+      <div class="timeline-item">
+        <h4>Interactive Discussions</h4>
+        <p>
+          The workshop featured interactive discussions and educational materials 
+          aimed at equipping participants with practical tools for better financial 
+          decision-making.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY ATL SKILLS -->
+  <section id="atl" class="wave-top wave-bottom">
+    <h2>Key ATL Skills Utilized: Research & Communication</h2>
+    <div class="content-grid">
+      <div class="content-block">
+        <p>
+          Our initiative heavily relies on research and communication skills to ensure 
+          effective financial education. Through extensive research, we developed an accessible 
+          and well-structured presentation tailored for those with limited financial knowledge.
+        </p>
+      </div>
+      <div class="content-block">
+        <p>
+          Strong communication skills allowed us to engage with the support staff, conveying 
+          complex financial concepts in a simple manner, and delivering information in a language 
+          they understand for meaningful learning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNER PROFILES -->
+  <section id="profiles" class="wave-top wave-bottom">
+    <h2>Learner Profiles: Principled & Communicator</h2>
+    <div class="content-grid">
+      <div class="content-block">
+        <p>
+          Our project was guided by two key learner profiles: being principled and 
+          being effective communicators. With a principled mindset, we worked 
+          collaboratively, maintaining integrity and teamwork without conflicts.
+        </p>
+      </div>
+      <div class="content-block">
+        <p>
+          Our strong communication skills allowed us to effectively share ideas, 
+          engage with the support staff, and ensure the success of our initiative 
+          through clear and impactful interactions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section id="challenges" class="wave-top wave-bottom">
+    <h2>Challenges & Overcoming Obstacles</h2>
+    <div class="content-grid">
+      <div class="content-block">
+        <p>
+          Our biggest challenge was time constraints, as our deadline was fast approaching. 
+          Despite the limited time, we remained committed to our goal and successfully 
+          executed our project.
+        </p>
+      </div>
+      <div class="content-block">
+        <p>
+          To overcome this challenge, we prioritized effective time management by taking extra 
+          classes and dedicating non-working days to ensure the completion of our work, 
+          demonstrating perseverance and dedication to our initiative.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Bright Futures Program</strong> &mdash; Empowering Financial Literacy</p>
+    <p>
+      &copy; <span id="year"></span> All Rights Reserved. 
+      <br/>
+      Built with <span style="color: var(--secondary);">&hearts;</span> and Determination.
+    </p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Update year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Fade-in observer for content blocks and timeline items
+    const faders = document.querySelectorAll('.content-block, .fade-in');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    const options = { threshold: 0.1 };
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    faders.forEach((el) => {
+      appearOnScroll.observe(el);
+    });
+    timelineItems.forEach((item) => {
+      appearOnScroll.observe(item);
+    });
+
+    // Parallax or subtle movement on scroll (Optional):
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero');
+      hero.style.backgroundPositionY = `${scrolled * 0.2}px`;
+    });
+  </script>
+</body>
+</html>

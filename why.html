@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bright Futures | Why</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ============= POPUP BUBBLE STYLES ============= */
+    #popup-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fff;
+      border: 2px solid #007BFF;
+      border-radius: 10px;
+      padding: 15px 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      animation: slideIn 1s ease-out, pulse 2s infinite;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    #popup-bubble p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+    #popup-bubble a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #popup-bubble a:hover {
+      text-decoration: underline;
+    }
+    #popup-close {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      font-size: 18px;
+      color: #333;
+      cursor: pointer;
+    }
+    /* Animations */
+    @keyframes slideIn {
+      0% {
+        transform: translateX(100%) translateY(100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER & NAVIGATION -->
+  <header>
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+      <div class="nav-container">
+        <div class="logo">
+          <a href="index.html" aria-label="Bright Futures Home">
+            <span class="logo-text">Bright Futures</span>
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="initiative.html" class="nav-link">Initiative</a></li>
+          <li><a href="why.html" class="nav-link">Why</a></li>
+          <li><a href="approach.html" class="nav-link">Approach</a></li>
+          <li><a href="actions.html" class="nav-link">Actions</a></li>
+          <li><a href="atl.html" class="nav-link">ATL Skills</a></li>
+          <li><a href="profiles.html" class="nav-link">Profiles</a></li>
+          <li><a href="challenges.html" class="nav-link">Challenges</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" role="banner">
+      <div class="hero-content">
+        <h1>Why We Chose This Initiative</h1>
+        <p>
+          Driven by our commitment to financial inclusion and empowerment for support staff.
+        </p>
+      </div>
+    </section>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section id="why" class="content-section">
+      <div class="container">
+        <h2>Our Motivation</h2>
+        <div class="content-grid">
+          <div class="content-block">
+            <p>
+              Our motivation stems from a personal commitment to improving financial awareness. We recognize that many support staff may not have access to essential financial education, leading to challenges in managing money effectively.
+            </p>
+          </div>
+          <div class="content-block">
+            <p>
+              By addressing this gap, we aim to empower support staff with the knowledge and skills needed to make informed financial decisions and achieve financial stability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p><strong>Bright Futures Program</strong> — Empowering Financial Literacy</p>
+      <p>
+        &copy; <span id="year"></span> All Rights Reserved.
+        <br />
+        Built with <span class="heart" aria-label="love">&hearts;</span> and Determination by Aarav Makhija
+      </p>
+    </div>
+  </footer>
+    <!-- ============= POPUP BUBBLE (Include on Every Page) ============= -->
+    <div id="popup-bubble" class="popup-bubble">
+      <span id="popup-close" class="popup-close">&times;</span>
+      <p>Explore the interviews we conducted!! <a href="initiative.html#videos">Learn More</a></p>
+    </div>
+  
+    <script src="script.js"></script>
+    <script>
+      // Update the footer year automatically
+      document.getElementById("year").textContent = new Date().getFullYear();
+  
+      // Close popup bubble when the close button is clicked
+      document.getElementById('popup-close').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('popup-bubble').style.display = 'none';
+      });
+      
+      // (Optional) Hide the popup after a set time (uncomment to enable)
+      // setTimeout(function(){
+      //   document.getElementById('popup-bubble').style.display = 'none';
+      // }, 15000);
+    </script>
+  <script src="script.js"></script>
+</body>
+</html>
