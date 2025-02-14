@@ -1,786 +1,751 @@
-/* ========================================================================== 
+/* ==========================================================================
    RESET & GLOBAL BASE STYLES
    ========================================================================== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #0d0d0d;  /* Deep, sleek black */
-  color: #ffffff;            /* Pure white text */
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center; /* Global center alignment fallback */
-}
-
-/* ========================================================================== 
-   CSS VARIABLES – REFINED COLOR PALETTE & TYPOGRAPHY
-   ========================================================================== */
-:root {
-  /* Colors */
-  --bg-color: #0d0d0d;             /* Page background */
-  --nav-bg: #1a1a1a;              /* Navbar background */
-  --text-color: #ffffff;          /* Pure white text */
-  --accent-color: #64ffda;        /* Cool teal accent */
-  --hover-accent: #4cc7bd;        /* Slightly darker teal for hover states */
-
-  /* Additional Colors (optional) */
-  --secondary-color: #ff4081;     /* Vibrant pink for optional highlights */
-  --warning-color: #ff9800;       /* Orange for warning states */
-  --success-color: #4caf50;       /* Green for success states */
-
-  /* Fonts */
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
-
-  /* Transitions & Animations */
-  --transition-fast: 0.25s ease-in-out;
-  --transition-slow: 0.8s ease;
-
-  /* Sizing */
-  --nav-height: 70px;
-  --btn-radius: 30px;
-
-  /* Shadows */
-  --shadow-intense: 0 6px 30px rgba(0, 0, 0, 0.8);
-}
-
-/* ========================================================================== 
-   ACCESSIBILITY: REDUCED MOTION 
-   ========================================================================== */
-/* If user prefers reduced motion, disable or shorten animations/transitions. */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition: none !important;
-  }
-}
-
-/* ========================================================================== 
-   UTILITY CLASSES
-   ========================================================================== */
-.text-center { text-align: center !important; }
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
-.mt-3 { margin-top: 3rem; }
-.mb-1 { margin-bottom: 1rem; }
-.mb-2 { margin-bottom: 2rem; }
-.mb-3 { margin-bottom: 3rem; }
-.p-1 { padding: 1rem; }
-.p-2 { padding: 2rem; }
-.p-3 { padding: 3rem; }
-.clearfix::after { content: ""; display: table; clear: both; }
-
-/* Force center alignment for key sections */
-.hero-content,
-.page-hero .hero-content,
-.content-section,
-.content-section h2,
-.content-section p,
-.content-block,
-.content-block p,
-.timeline-item,
-.video-overlay,
-.modal .modal-content {
-  text-align: center !important;
-}
-
-/* Extra animation utility – add the class .animate-text for extra bounce on hover */
-.animate-text {
-  /* Only run if user does not prefer reduced motion */
-  @media (prefers-reduced-motion: no-preference) {
-    animation: fadeInUp 1s ease-out;
-    transition: transform var(--transition-fast);
-  }
-}
-.animate-text:hover {
-  @media (prefers-reduced-motion: no-preference) {
-    animation: bounce 1s ease-in-out;
-  }
-}
-
-/* ========================================================================== 
-   KEYFRAME ANIMATIONS
-   (Wrapped in prefers-reduced-motion: no-preference for safety)
-   ========================================================================== */
-@media (prefers-reduced-motion: no-preference) {
-
-  /* Fade In Up Animation */
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Slide In from Bottom Left (for modals) */
-  @keyframes slideInFromBottomLeft {
-    0% {
-      opacity: 0;
-      transform: translate(-100%, 100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-  }
-
-  /* Continuous Spin for Decorative Elements */
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  /* Pulse Animation on Hover */
-  @keyframes pulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-
-  /* Bounce Animation for extra emphasis on headings */
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-  }
-
-  /* Glitch Effect for Headings (optional, subtle) */
-  @keyframes glitch {
-    0%   { clip: rect(10px, 9999px, 30px, 0); transform: skew(0.5deg); }
-    20%  { clip: rect(15px, 9999px, 25px, 0); transform: skew(-0.5deg); }
-    40%  { clip: rect(5px, 9999px, 20px, 0);  transform: skew(0.5deg); }
-    60%  { clip: rect(10px, 9999px, 30px, 0); transform: skew(-0.5deg); }
-    80%  { clip: rect(15px, 9999px, 25px, 0); transform: skew(0.5deg); }
-    100% { clip: rect(10px, 9999px, 30px, 0); transform: skew(0deg); }
-  }
-}
-
-/* ========================================================================== 
-   NAVIGATION – FIXED, ALWAYS VISIBLE, LOGO ON TOP LEFT
-   ========================================================================== */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: var(--nav-height);
-  background-color: var(--nav-bg);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-  z-index: 10000;
-  border-bottom: 1px solid var(--accent-color);
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo a {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.logo-img {
-  width: 60px;
-  height: auto;
-  margin-right: 1rem;
-  transition: transform var(--transition-fast);
-}
-.logo-img:hover {
-  @media (prefers-reduced-motion: no-preference) {
-    transform: rotate(360deg);
-  }
-}
-
-/* Navigation links: always visible */
-.nav-menu {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-link {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-color);
-  position: relative;
-  padding: 0.5rem 0;
-  transition: color var(--transition-fast);
-  outline: none;
-}
-
-/* Hover, focus, and focus-visible states (keyboard nav) */
-.nav-link:hover,
-.nav-link:focus {
-  color: var(--accent-color);
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--accent-color);
-  transition: width var(--transition-fast);
-}
-.nav-link:hover::after {
-  width: 100%;
-}
-.nav-link:focus-visible {
-  outline: 3px dashed var(--accent-color);
-  outline-offset: 4px;
-}
-
-/* Mobile Navigation – Hamburger Menu & Toggle Display */
-@media (max-width: 600px) {
-  .nav-container {
-    justify-content: space-between;
-  }
-  /* Hide the inline nav menu by default on mobile */
-  .nav-menu {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 2rem 0; /* Increased padding for larger clickable area */
-    width: 100%;
-    position: fixed;
-    top: var(--nav-height);
-    left: 0;
-    background-color: var(--nav-bg);
-    z-index: 10001;
-  }
-  /* When active, show the nav menu */
-  .nav-menu.active {
-    display: flex;
-  }
-  .nav-link {
-    font-size: 1.2rem;   /* Increased font size for easier tapping */
-    padding: 1rem 0;    /* Increased vertical padding */
-  }
-  .hamburger {
-    display: flex;
-  }
-}
-
-/* ========================================================================== 
-   HERO & PAGE HEADER – CENTER-ALIGNED, ANIMATED, & RESPONSIVE
-   ========================================================================== */
-.hero,
-.page-hero {
-  position: relative;
-  text-align: center;
-  color: var(--text-color);
-  overflow: hidden;
-}
-
-.hero {
-  background: linear-gradient(135deg, var(--nav-bg), var(--accent-color));
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 2rem;
-  margin-top: var(--nav-height);
-  background-attachment: fixed;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.05),
-    transparent 70%
-  );
-  z-index: 1;
-  @media (prefers-reduced-motion: no-preference) {
-    animation: spin 20s linear infinite;
-  }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 800px;
-  text-align: center;
-  @media (prefers-reduced-motion: no-preference) {
-    animation: fadeInUp var(--transition-slow) forwards;
-  }
-}
-
-.hero h1 {
-  font-family: var(--font-heading);
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
-  @media (prefers-reduced-motion: no-preference) {
-    animation: glitch 2s infinite, bounce 1.5s infinite;
-  }
-}
-
-.hero p {
-  font-size: 1.3rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-}
-
-.page-hero {
-  background: linear-gradient(135deg, var(--accent-color), var(--nav-bg));
-  padding: 4rem 2rem;
-  margin-top: var(--nav-height);
-}
-
-.page-hero .hero-content h1 {
-  font-family: var(--font-heading);
-  font-size: 2.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.page-hero .hero-content p {
-  font-size: 1.1rem;
-}
-
-/* ========================================================================== 
-   BUTTONS – SMOOTH, MODERN & INTERACTIVE
-   ========================================================================== */
-.btn {
-  display: inline-block;
-  background-color: var(--accent-color);
-  color: var(--nav-bg);
-  padding: 0.8rem 2rem;
-  border: none;
-  border-radius: var(--btn-radius);
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background var(--transition-fast), transform var(--transition-fast);
-  cursor: pointer;
-  outline: none;
-}
-.btn:hover,
-.btn:focus {
-  background-color: var(--hover-accent);
-  transform: translateY(-3px);
-}
-.btn:focus-visible {
-  outline: 3px dashed var(--accent-color);
-  outline-offset: 4px;
-}
-
-/* Secondary Button */
-.btn-secondary {
-  background-color: var(--nav-bg);
-  color: var(--accent-color);
-}
-.btn-secondary:hover,
-.btn-secondary:focus {
-  background-color: var(--accent-color);
-  color: var(--nav-bg);
-}
-
-/* Outline Button */
-.btn-outline {
-  background: transparent;
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-}
-.btn-outline:hover,
-.btn-outline:focus {
-  background: var(--accent-color);
-  color: var(--nav-bg);
-}
-
-/* ========================================================================== 
-   CONTAINERS & GRID LAYOUTS – FLUID & RESPONSIVE
-   ========================================================================== */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-
-.content-section {
-  padding: 4rem 0;
-  background-color: var(--bg-color);
-  @media (prefers-reduced-motion: no-preference) {
-    animation: fadeInUp var(--transition-slow) forwards;
-  }
-  text-align: center;
-}
-
-.content-section h2 {
-  text-align: center;
-  font-size: 2.8rem;
-  margin-bottom: 2rem;
-  color: var(--text-color);
-  letter-spacing: 1px;
-}
-
-.content-section p {
-  text-align: center;
-}
-
-.content-grid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 768px) {
-  .content-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.content-block {
-  background-color: rgba(26, 26, 26, 0.95);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  transform: translateY(20px);
-  @media (prefers-reduced-motion: no-preference) {
-    animation: fadeInUp var(--transition-slow) forwards;
-    animation-delay: 0.3s;
-  }
-}
-.content-block.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.content-block h3 {
-  margin-bottom: 1rem;
-  font-family: var(--font-heading);
-  color: var(--accent-color);
-  font-size: 1.8rem;
-  text-align: center;
-}
-.content-block p {
-  margin-bottom: 0;
-  text-align: center;
-  color: var(--text-color);
-}
-
-/* ========================================================================== 
-   VIDEO SECTION – HIGH-QUALITY HOVER EFFECTS
-   ========================================================================== */
-.video-grid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 768px) {
-  .video-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.video-block {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-  transition: transform var(--transition-fast);
-}
-.video-block:hover {
-  @media (prefers-reduced-motion: no-preference) {
-    transform: scale(1.05);
-    animation: pulse 1.5s infinite;
-  }
-}
-.video-block video {
-  width: 100%;
-  display: block;
-  transition: opacity var(--transition-fast);
-}
-.video-block:hover video {
-  opacity: 0.85;
-}
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-.video-block:hover .video-overlay {
-  opacity: 1;
-}
-.video-overlay h3 {
-  color: var(--nav-bg);
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  text-align: center;
-}
-
-/* ========================================================================== 
-   TIMELINE / ACTIONS SECTION (OPTIONAL)
-   ========================================================================== */
-.timeline-section {
-  padding: 4rem 0;
-  background-color: var(--bg-color);
-  text-align: center;
-}
-
-.timeline-container {
-  position: relative;
-  margin: 0 auto;
-  max-width: 900px;
-  padding-top: 2rem;
-}
-
-.timeline-bar {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 100%;
-  background-color: var(--nav-bg);
-}
-
-.timeline-item {
-  position: relative;
-  width: calc(50% - 40px);
-  padding: 1.5rem;
-  background-color: var(--nav-bg);
-  color: var(--text-color);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(20px);
-  @media (prefers-reduced-motion: no-preference) {
-    animation: fadeInUp var(--transition-slow) forwards;
-  }
-}
-.timeline-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.timeline-item h4 {
-  font-family: var(--font-heading);
-  margin-bottom: 0.5rem;
-  color: var(--accent-color);
-  font-size: 1.6rem;
-  text-align: center;
-}
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  width: 16px;
-  height: 16px;
-  background-color: var(--accent-color);
-  border-radius: 50%;
-}
-.timeline-item:nth-child(odd) {
-  left: 0;
-  text-align: right;
-}
-.timeline-item:nth-child(odd)::before {
-  right: -8px;
-}
-.timeline-item:nth-child(even) {
-  left: 50%;
-  text-align: left;
-}
-.timeline-item:nth-child(even)::before {
-  left: -8px;
-}
-
-/* ========================================================================== 
-   MODAL POPUP – SLIDE IN FROM BOTTOM LEFT
-   ========================================================================== */
-.modal {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  max-width: 400px;
-  background-color: var(--nav-bg);
-  border-top-right-radius: 20px;
-  border: 2px solid var(--accent-color);
-  box-shadow: -4px -4px 20px rgba(0, 0, 0, 0.8);
-  transform: translateY(100%);
-  opacity: 0;
-  visibility: hidden;
-  transition: transform var(--transition-slow), opacity var(--transition-slow);
-  z-index: 20000;
-}
-.modal.show {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-  @media (prefers-reduced-motion: no-preference) {
-    animation: slideInFromBottomLeft var(--transition-slow) forwards;
-  }
-}
-.modal .modal-content {
-  padding: 2rem;
-  position: relative;
-  text-align: center;
-}
-.modal h2 {
-  font-family: var(--font-heading);
-  color: var(--accent-color);
-  margin-bottom: 1rem;
-}
-.modal p {
-  font-size: 1rem;
-  color: var(--text-color);
-  line-height: 1.5;
-}
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 2rem;
-  color: var(--accent-color);
-  cursor: pointer;
-  transition: color var(--transition-fast);
-}
-.modal-close:hover {
-  color: var(--hover-accent);
-}
-
-/* ========================================================================== 
-   FOOTER – ELEGANT, MINIMAL & HIGH-CONTRAST
-   ========================================================================== */
-footer {
-  background-color: var(--nav-bg);
-  color: var(--text-color);
-  padding: 2rem 0;
-  text-align: center;
-}
-footer p {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-}
-footer .heart {
-  color: var(--accent-color);
-}
-
-/* ========================================================================== 
-   DECORATIVE ELEMENTS – SUBTLE & CONTINUOUS ANIMATIONS
-   ========================================================================== */
-.decorative-shape {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.15;
-  @media (prefers-reduced-motion: no-preference) {
-    animation: spin 30s linear infinite;
-  }
-}
-.shape-1 {
-  width: 250px;
-  height: 250px;
-  background: var(--accent-color);
-  top: -100px;
-  left: -100px;
-}
-.shape-2 {
-  width: 200px;
-  height: 200px;
-  background: var(--nav-bg);
-  bottom: -100px;
-  right: -100px;
-}
-
-/* ========================================================================== 
-   EXTRA UTILITY & FILLER CLASSES (SIMULATING A MASSIVE CODEBASE)
-   ========================================================================== */
-.extra-spacing { margin: 2rem 0; }
-.extra-padding { padding: 2rem; }
-.extra-border { border: 1px solid rgba(255,255,255,0.1); }
-.extra-shadow { box-shadow: 0 0 10px rgba(0,0,0,0.3); }
-
-/* Dummy filler rules to simulate large codebases */
-.extra-rule-1 { text-transform: uppercase; }
-.extra-rule-2 { letter-spacing: 2px; }
-.extra-rule-3 { background: linear-gradient(45deg, var(--accent-color), var(--hover-accent)); }
-.extra-rule-4 { transition: all 0.5s ease; }
-.extra-rule-5 { transform: skewX(5deg); }
-.extra-rule-6 { border-radius: 50%; }
-.extra-rule-7 { opacity: 0.8; }
-.extra-rule-8 { filter: blur(2px); }
-.extra-rule-9 { position: relative; }
-.extra-rule-10 { cursor: crosshair; }
-
-/* --- FILLER START: Imagine more filler lines below if needed --- */
-.filler { /* Filler content line */ }
-/* --- FILLER END --- */
-
-/* ========================================================================== 
-   RESPONSIVE DESIGN & FINAL TOUCHES – FITS ALL DEVICES PERFECTLY
-   ========================================================================== */
-
-/* Additional Media Query for Larger Screens */
-@media (min-width: 1024px) {
-  .hero h1 {
-    font-size: 4rem;
-  }
-  .hero p {
-    font-size: 1.5rem;
-  }
-  .page-hero .hero-content h1 {
-    font-size: 3.2rem;
-  }
-}
-
-/* Small screens */
-@media (max-width: 480px) {
-  .hero h1 { font-size: 2.2rem; }
-  .hero p { font-size: 1rem; }
-  .btn {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.9rem;
-  }
-  .nav-menu {
-    font-size: 0.9rem;
-  }
-}
-
-/* ========================================================================== 
-   END OF MASTER CSS FILE
-   ========================================================================== */
+   *,
+   *::before,
+   *::after {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   
+   html {
+     font-size: 16px;
+     scroll-behavior: smooth;
+   }
+   
+   body {
+     font-family: 'Plus Jakarta Sans', sans-serif;
+     background-color: #0d0d0d;  /* Deep, sleek black */
+     color: #ffffff;            /* Pure white text */
+     line-height: 1.6;
+     overflow-x: hidden;
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     text-align: center; /* Global center alignment fallback */
+   }
+   
+   /* ==========================================================================
+      CSS VARIABLES – REFINED COLOR PALETTE & TYPOGRAPHY
+      ========================================================================== */
+   :root {
+     /* Colors */
+     --bg-color: #0d0d0d;             /* Page background */
+     --nav-bg: #1a1a1a;              /* Navbar background */
+     --text-color: #ffffff;          /* Pure white text */
+     --accent-color: #64ffda;        /* Cool teal accent */
+     --hover-accent: #4cc7bd;        /* Slightly darker teal for hover states */
+   
+     /* Additional Colors (optional) */
+     --secondary-color: #ff4081;     /* Vibrant pink for optional highlights */
+     --warning-color: #ff9800;       /* Orange for warning states */
+     --success-color: #4caf50;       /* Green for success states */
+   
+     /* Fonts */
+     --font-heading: 'Montserrat', sans-serif;
+     --font-body: 'Plus Jakarta Sans', sans-serif;
+   
+     /* Transitions & Animations */
+     --transition-fast: 0.25s ease-in-out;
+     --transition-slow: 0.8s ease;
+   
+     /* Sizing */
+     --nav-height: 70px;
+     --btn-radius: 30px;
+     --shadow-intense: 0 6px 30px rgba(0, 0, 0, 0.8);
+   }
+   
+   /* ==========================================================================
+      UTILITY CLASSES
+      ========================================================================== */
+   .text-center { text-align: center !important; }
+   .mt-1 { margin-top: 1rem; }
+   .mt-2 { margin-top: 2rem; }
+   .mt-3 { margin-top: 3rem; }
+   .mb-1 { margin-bottom: 1rem; }
+   .mb-2 { margin-bottom: 2rem; }
+   .mb-3 { margin-bottom: 3rem; }
+   .p-1 { padding: 1rem; }
+   .p-2 { padding: 2rem; }
+   .p-3 { padding: 3rem; }
+   .clearfix::after { content: ""; display: table; clear: both; }
+   
+   /* Force center alignment for key sections */
+   .hero-content,
+   .page-hero .hero-content,
+   .content-section,
+   .content-section h2,
+   .content-section p,
+   .content-block,
+   .content-block p,
+   .timeline-item,
+   .video-overlay,
+   .modal .modal-content {
+     text-align: center !important;
+   }
+   
+   /* Extra animation utility – add the class .animate-text for extra bounce on hover */
+   .animate-text {
+     animation: fadeInUp 1s ease-out;
+     transition: transform var(--transition-fast);
+   }
+   .animate-text:hover {
+     animation: bounce 1s ease-in-out;
+   }
+   
+   /* ==========================================================================
+      KEYFRAME ANIMATIONS
+      ========================================================================== */
+   /* Fade In Up Animation */
+   @keyframes fadeInUp {
+     0% {
+       opacity: 0;
+       transform: translateY(30px);
+     }
+     100% {
+       opacity: 1;
+       transform: translateY(0);
+     }
+   }
+   
+   /* Slide In from Bottom Left (for modals) */
+   @keyframes slideInFromBottomLeft {
+     0% {
+       opacity: 0;
+       transform: translate(-100%, 100%);
+     }
+     100% {
+       opacity: 1;
+       transform: translate(0, 0);
+     }
+   }
+   
+   /* Continuous Spin for Decorative Elements */
+   @keyframes spin {
+     from {
+       transform: rotate(0deg);
+     }
+     to {
+       transform: rotate(360deg);
+     }
+   }
+   
+   /* Pulse Animation on Hover */
+   @keyframes pulse {
+     0% {
+       transform: scale(1);
+     }
+     50% {
+       transform: scale(1.05);
+     }
+     100% {
+       transform: scale(1);
+     }
+   }
+   
+   /* Bounce Animation for extra emphasis on headings */
+   @keyframes bounce {
+     0%, 20%, 50%, 80%, 100% {
+       transform: translateY(0);
+     }
+     40% {
+       transform: translateY(-10px);
+     }
+     60% {
+       transform: translateY(-5px);
+     }
+   }
+   
+   /* Glitch Effect for Headings (optional, subtle) */
+   @keyframes glitch {
+     0% {
+       clip: rect(10px, 9999px, 30px, 0);
+       transform: skew(0.5deg);
+     }
+     20% {
+       clip: rect(15px, 9999px, 25px, 0);
+       transform: skew(-0.5deg);
+     }
+     40% {
+       clip: rect(5px, 9999px, 20px, 0);
+       transform: skew(0.5deg);
+     }
+     60% {
+       clip: rect(10px, 9999px, 30px, 0);
+       transform: skew(-0.5deg);
+     }
+     80% {
+       clip: rect(15px, 9999px, 25px, 0);
+       transform: skew(0.5deg);
+     }
+     100% {
+       clip: rect(10px, 9999px, 30px, 0);
+       transform: skew(0deg);
+     }
+   }
+   
+   /* ==========================================================================
+      NAVIGATION – FIXED, ALWAYS VISIBLE, LOGO ON TOP LEFT
+      ========================================================================== */
+   .navbar {
+     position: fixed;
+     top: 0;
+     width: 100%;
+     height: var(--nav-height);
+     background-color: var(--nav-bg);
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+     z-index: 10000;
+     border-bottom: 1px solid var(--accent-color);
+   }
+   
+   .nav-container {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 0 2rem;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     height: 100%;
+   }
+   
+   .logo {
+     display: flex;
+     align-items: center;
+   }
+   
+   .logo a {
+     text-decoration: none;
+     display: flex;
+     align-items: center;
+   }
+   
+   .logo-img {
+     width: 60px;
+     height: auto;
+     margin-right: 1rem;
+     transition: transform var(--transition-fast);
+   }
+   .logo-img:hover {
+     transform: rotate(360deg);
+   }
+   
+   /* Navigation links: always visible */
+   .nav-menu {
+     display: flex;
+     gap: 2rem;
+     list-style: none;
+   }
+   
+   .nav-link {
+     font-size: 1rem;
+     font-weight: 600;
+     color: var(--text-color);
+     position: relative;
+     padding: 0.5rem 0;
+     transition: color var(--transition-fast);
+   }
+   .nav-link:hover,
+   .nav-link:focus {
+     color: var(--accent-color);
+   }
+   .nav-link::after {
+     content: "";
+     position: absolute;
+     bottom: -4px;
+     left: 0;
+     width: 0;
+     height: 2px;
+     background-color: var(--accent-color);
+     transition: width var(--transition-fast);
+   }
+   .nav-link:hover::after {
+     width: 100%;
+   }
+   
+   /* Mobile Navigation – Hamburger Menu & Toggle Display */
+   @media (max-width: 600px) {
+     .nav-container {
+       justify-content: space-between;
+     }
+     /* Hide the inline nav menu by default on mobile */
+     .nav-menu {
+       display: none;
+       flex-direction: column;
+       align-items: center;
+       gap: 1rem;
+       padding: 2rem 0; /* Increased padding for larger clickable area */
+       width: 100%;
+       position: fixed;
+       top: var(--nav-height);
+       left: 0;
+       background-color: var(--nav-bg);
+       z-index: 10001;
+     }
+     /* When active, show the nav menu */
+     .nav-menu.active {
+       display: flex;
+     }
+     .nav-link {
+       font-size: 1.2rem;   /* Increased font size for easier tapping */
+       padding: 1rem 0;    /* Increased vertical padding */
+     }
+     .hamburger {
+       display: flex;
+     }
+   }
+   
+   /* ==========================================================================
+      HERO & PAGE HEADER – CENTER-ALIGNED, ANIMATED, & RESPONSIVE
+      ========================================================================== */
+   .hero,
+   .page-hero {
+     position: relative;
+     text-align: center;
+     color: var(--text-color);
+     overflow: hidden;
+   }
+   
+   .hero {
+     background: linear-gradient(135deg, var(--nav-bg), var(--accent-color));
+     height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 0 2rem;
+     margin-top: var(--nav-height);
+     background-attachment: fixed;
+   }
+   
+   .hero::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 200%;
+     height: 200%;
+     background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%);
+     animation: spin 20s linear infinite;
+     z-index: 1;
+   }
+   
+   .hero-content {
+     position: relative;
+     z-index: 2;
+     max-width: 800px;
+     text-align: center;
+     animation: fadeInUp var(--transition-slow) forwards;
+   }
+   
+   .hero h1 {
+     font-family: var(--font-heading);
+     font-size: 3.5rem;
+     margin-bottom: 1rem;
+     text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+     animation: glitch 2s infinite, bounce 1.5s infinite;
+   }
+   
+   .hero p {
+     font-size: 1.3rem;
+     margin-bottom: 2rem;
+     opacity: 0.9;
+   }
+   
+   .page-hero {
+     background: linear-gradient(135deg, var(--accent-color), var(--nav-bg));
+     padding: 4rem 2rem;
+     margin-top: var(--nav-height);
+     text-align: center;
+   }
+   
+   .page-hero .hero-content h1 {
+     font-family: var(--font-heading);
+     font-size: 2.8rem;
+     margin-bottom: 0.5rem;
+   }
+   
+   .page-hero .hero-content p {
+     font-size: 1.1rem;
+   }
+   
+   /* ==========================================================================
+      BUTTONS – SMOOTH, MODERN & INTERACTIVE
+      ========================================================================== */
+   .btn {
+     display: inline-block;
+     background-color: var(--accent-color);
+     color: var(--nav-bg);
+     padding: 0.8rem 2rem;
+     border: none;
+     border-radius: var(--btn-radius);
+     text-decoration: none;
+     font-size: 1rem;
+     font-weight: 600;
+     transition: background var(--transition-fast), transform var(--transition-fast);
+     cursor: pointer;
+   }
+   .btn:hover,
+   .btn:focus {
+     background-color: var(--hover-accent);
+     transform: translateY(-3px);
+   }
+   .btn-secondary {
+     background-color: var(--nav-bg);
+   }
+   .btn-secondary:hover,
+   .btn-secondary:focus {
+     background-color: var(--accent-color);
+   }
+   
+   /* Optional Outline Button */
+   .btn-outline {
+     background: transparent;
+     color: var(--accent-color);
+     border: 2px solid var(--accent-color);
+   }
+   .btn-outline:hover,
+   .btn-outline:focus {
+     background: var(--accent-color);
+     color: var(--nav-bg);
+   }
+   
+   /* ==========================================================================
+      CONTAINERS & GRID LAYOUTS – FLUID & RESPONSIVE
+      ========================================================================== */
+   .container {
+     width: 90%;
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 2rem 0;
+   }
+   
+   .content-section {
+     padding: 4rem 0;
+     background-color: var(--bg-color);
+     animation: fadeInUp var(--transition-slow) forwards;
+     text-align: center;
+   }
+   
+   .content-section h2 {
+     text-align: center;
+     font-size: 2.8rem;
+     margin-bottom: 2rem;
+     color: var(--text-color);
+     letter-spacing: 1px;
+   }
+   
+   .content-section p {
+     text-align: center;
+   }
+   
+   .content-grid {
+     display: grid;
+     gap: 2rem;
+     grid-template-columns: 1fr;
+   }
+   @media (min-width: 768px) {
+     .content-grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
+   }
+   
+   .content-block {
+     background-color: rgba(26,26,26, 0.95); /* Slightly lighter than nav-bg for contrast */
+     padding: 2rem;
+     border-radius: 8px;
+     box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+     opacity: 0;
+     transform: translateY(20px);
+     animation: fadeInUp var(--transition-slow) forwards;
+     animation-delay: 0.3s;
+   }
+   .content-block.visible {
+     opacity: 1;
+     transform: translateY(0);
+   }
+   .content-block h3 {
+     margin-bottom: 1rem;
+     font-family: var(--font-heading);
+     color: var(--accent-color);
+     font-size: 1.8rem;
+     text-align: center;
+   }
+   .content-block p {
+     margin-bottom: 0;
+     text-align: center;
+     color: var(--text-color);
+   }
+   
+   /* ==========================================================================
+      VIDEO SECTION – HIGH-QUALITY HOVER EFFECTS
+      ========================================================================== */
+   .video-grid {
+     display: grid;
+     gap: 2rem;
+     grid-template-columns: 1fr;
+   }
+   @media (min-width: 768px) {
+     .video-grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
+   }
+   
+   .video-block {
+     position: relative;
+     overflow: hidden;
+     border-radius: 10px;
+     box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+     transition: transform var(--transition-fast);
+   }
+   .video-block:hover {
+     transform: scale(1.05);
+     animation: pulse 1.5s infinite;
+   }
+   .video-block video {
+     width: 100%;
+     display: block;
+     transition: opacity var(--transition-fast);
+   }
+   .video-block:hover video {
+     opacity: 0.85;
+   }
+   .video-overlay {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background: rgba(0, 0, 0, 0.5);
+     opacity: 0;
+     transition: opacity var(--transition-fast);
+   }
+   .video-block:hover .video-overlay {
+     opacity: 1;
+   }
+   .video-overlay h3 {
+     color: var(--nav-bg);
+     font-family: var(--font-heading);
+     font-size: 1.8rem;
+     text-align: center;
+   }
+   
+   /* ==========================================================================
+      TIMELINE / ACTIONS SECTION (OPTIONAL)
+      ========================================================================== */
+   .timeline-section {
+     padding: 4rem 0;
+     background-color: var(--bg-color);
+     text-align: center;
+   }
+   .timeline-container {
+     position: relative;
+     margin: 0 auto;
+     max-width: 900px;
+     padding-top: 2rem;
+   }
+   .timeline-bar {
+     position: absolute;
+     left: 50%;
+     top: 0;
+     transform: translateX(-50%);
+     width: 4px;
+     height: 100%;
+     background-color: var(--nav-bg);
+   }
+   .timeline-item {
+     position: relative;
+     width: calc(50% - 40px);
+     padding: 1.5rem;
+     background-color: var(--nav-bg);
+     color: var(--text-color);
+     border-radius: 8px;
+     box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+     margin-bottom: 2rem;
+     opacity: 0;
+     transform: translateY(20px);
+     animation: fadeInUp var(--transition-slow) forwards;
+   }
+   .timeline-item.visible {
+     opacity: 1;
+     transform: translateY(0);
+   }
+   .timeline-item h4 {
+     font-family: var(--font-heading);
+     margin-bottom: 0.5rem;
+     color: var(--accent-color);
+     font-size: 1.6rem;
+     text-align: center;
+   }
+   .timeline-item::before {
+     content: "";
+     position: absolute;
+     top: 20px;
+     width: 16px;
+     height: 16px;
+     background-color: var(--accent-color);
+     border-radius: 50%;
+   }
+   .timeline-item:nth-child(odd) {
+     left: 0;
+     text-align: right;
+   }
+   .timeline-item:nth-child(odd)::before {
+     right: -8px;
+   }
+   .timeline-item:nth-child(even) {
+     left: 50%;
+     text-align: left;
+   }
+   .timeline-item:nth-child(even)::before {
+     left: -8px;
+   }
+   
+   /* ==========================================================================
+      MODAL POPUP – SLIDE IN FROM BOTTOM LEFT
+      ========================================================================== */
+   .modal {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     max-width: 400px;
+     background-color: var(--nav-bg);
+     border-top-right-radius: 20px;
+     border: 2px solid var(--accent-color);
+     box-shadow: -4px -4px 20px rgba(0,0,0,0.8);
+     transform: translateY(100%);
+     opacity: 0;
+     visibility: hidden;
+     transition: transform var(--transition-slow), opacity var(--transition-slow);
+     z-index: 20000;
+   }
+   .modal.show {
+     transform: translateY(0);
+     opacity: 1;
+     visibility: visible;
+     animation: slideInFromBottomLeft var(--transition-slow) forwards;
+   }
+   .modal .modal-content {
+     padding: 2rem;
+     position: relative;
+     text-align: center;
+   }
+   .modal h2 {
+     font-family: var(--font-heading);
+     color: var(--accent-color);
+     margin-bottom: 1rem;
+   }
+   .modal p {
+     font-size: 1rem;
+     color: var(--text-color);
+     line-height: 1.5;
+   }
+   .modal-close {
+     position: absolute;
+     top: 10px;
+     right: 15px;
+     font-size: 2rem;
+     color: var(--accent-color);
+     cursor: pointer;
+     transition: color var(--transition-fast);
+   }
+   .modal-close:hover {
+     color: var(--hover-accent);
+   }
+   
+   /* ==========================================================================
+      FOOTER – ELEGANT, MINIMAL & HIGH-CONTRAST
+      ========================================================================== */
+   footer {
+     background-color: var(--nav-bg);
+     color: var(--text-color);
+     padding: 2rem 0;
+     text-align: center;
+   }
+   footer p {
+     margin: 0.5rem 0;
+     font-size: 0.9rem;
+   }
+   footer .heart {
+     color: var(--accent-color);
+   }
+   
+   /* ==========================================================================
+      DECORATIVE ELEMENTS – SUBTLE & CONTINUOUS ANIMATIONS
+      ========================================================================== */
+   .decorative-shape {
+     position: absolute;
+     border-radius: 50%;
+     opacity: 0.15;
+     animation: spin 30s linear infinite;
+   }
+   .shape-1 {
+     width: 250px;
+     height: 250px;
+     background: var(--accent-color);
+     top: -100px;
+     left: -100px;
+   }
+   .shape-2 {
+     width: 200px;
+     height: 200px;
+     background: var(--nav-bg);
+     bottom: -100px;
+     right: -100px;
+   }
+   
+   /* ==========================================================================
+      EXTRA UTILITY & FILLER CLASSES (SIMULATING A MASSIVE CODEBASE)
+      ========================================================================== */
+   .extra-spacing { margin: 2rem 0; }
+   .extra-padding { padding: 2rem; }
+   .extra-border { border: 1px solid rgba(255,255,255,0.1); }
+   .extra-shadow { box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+   
+   /* Dummy filler rules to simulate thousands of lines */
+   .extra-rule-1 { text-transform: uppercase; }
+   .extra-rule-2 { letter-spacing: 2px; }
+   .extra-rule-3 { background: linear-gradient(45deg, var(--accent-color), var(--hover-accent)); }
+   .extra-rule-4 { transition: all 0.5s ease; }
+   .extra-rule-5 { transform: skewX(5deg); }
+   .extra-rule-6 { border-radius: 50%; }
+   .extra-rule-7 { opacity: 0.8; }
+   .extra-rule-8 { filter: blur(2px); }
+   .extra-rule-9 { position: relative; }
+   .extra-rule-10 { cursor: crosshair; }
+   
+   /* --- FILLER START: Imagine thousands of similar filler lines below --- */
+   .filler { /* Filler content line */ }
+   /* --- FILLER END --- */
+   
+   /* ==========================================================================
+      RESPONSIVE DESIGN & FINAL TOUCHES – FITS ALL DEVICES PERFECTLY
+      ========================================================================== */
+   
+   /* Additional Media Query for Larger Screens */
+   @media (min-width: 1024px) {
+     .hero h1 {
+       font-size: 4rem;
+     }
+     .hero p {
+       font-size: 1.5rem;
+     }
+     .page-hero .hero-content h1 {
+       font-size: 3.2rem;
+     }
+   }
+   
+   /* Small screens */
+   @media (max-width: 480px) {
+     .hero h1 { font-size: 2.2rem; }
+     .hero p { font-size: 1rem; }
+     .btn { padding: 0.6rem 1.5rem; font-size: 0.9rem; }
+     .nav-menu { font-size: 0.9rem; }
+   }
+   
+   /* ==========================================================================
+      END OF MASTER CSS FILE
+      ========================================================================== */
+   
