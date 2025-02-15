@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fun With Finance | Investing Guide</title>
+
+  <!-- GOOGLE FONTS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- INLINE CSS -->
+  <style>
+    /***************************************************
+     * 1. RESET & GLOBAL
+     ***************************************************/
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      line-height: 1.6;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; }
+
+    /***************************************************
+     * 2. CSS VARIABLES
+     ***************************************************/
+    :root {
+      --nav-height: 70px;
+      --accent-color: #64ffda;
+      --accent-hover: #48e2bf;
+      --nav-bg: #1a1a1a;
+      --text-color: #ffffff;
+      --btn-radius: 30px;
+      --transition-fast: 0.25s ease-in-out;
+      --transition-slow: 0.8s ease;
+    }
+
+    /***************************************************
+     * 3. NAVBAR & HAMBURGER
+     ***************************************************/
+    .navbar {
+      position: fixed; top: 0; width: 100%; height: var(--nav-height);
+      background-color: var(--nav-bg);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex; align-items: center;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent-color);
+    }
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    .nav-link {
+      font-weight: 600;
+      color: var(--text-color);
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color var(--transition-fast);
+    }
+    .nav-link:hover { color: var(--accent-color); }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width var(--transition-fast);
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .bar {
+      width: 25px; height: 3px; background: #fff;
+      transition: all 0.3s ease;
+    }
+
+    /* MOBILE NAV */
+    @media (max-width: 768px) {
+      .nav-menu { 
+        display: none; 
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background: var(--nav-bg);
+        gap: 1rem;
+        padding: 2rem 0;
+      }
+      .nav-menu.active { display: flex; }
+      .hamburger { display: flex; }
+    }
+
+    /***************************************************
+     * 4. WAVE DIVIDERS
+     ***************************************************/
+    .wave-top {
+      position: relative;
+    }
+    .wave-top::before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml,%3Csvg viewBox="0 0 500 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0.00,49.98 C269.20,158.83 271.14,-58.64 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" fill="%23ffffff"%3E%3C/path%3E%3C/svg%3E');
+      background-repeat: no-repeat;
+      background-size: cover;
+      transform: rotate(180deg);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .wave-bottom {
+      position: relative;
+    }
+    .wave-bottom::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: url('data:image/svg+xml,%3Csvg viewBox="0 0 500 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M-0.44,77.06 C149.99,150.00 351.64,-49.99 503.33,89.63 L500.00,0.00 L0.00,0.00 Z" fill="%23ffffff"%3E%3C/path%3E%3C/svg%3E');
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /***************************************************
+     * 5. HERO
+     ***************************************************/
+    .hero {
+      margin-top: var(--nav-height);
+      height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #101010, #202020);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, var(--accent-color) 15%, transparent 40%);
+      opacity: 0.2;
+      animation: spin 30s linear infinite;
+      border-radius: 50%;
+    }
+    .hero-content {
+      position: relative;
+      max-width: 800px;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+      animation: fadeInUp 1.2s ease forwards;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+      animation: bounce 2s infinite;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    /***************************************************
+     * 6. CONTENT SECTION & LAYOUT
+     ***************************************************/
+    .content-section {
+      padding: 4rem 2rem;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .big-heading {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-color);
+    }
+    .divider {
+      width: 80%;
+      margin: 2rem auto;
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /***************************************************
+     * 7. TUTORIAL STYLES
+     ***************************************************/
+    .tutorial-step {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      animation: fadeInUp 1.2s ease;
+    }
+    .tutorial-step h3 {
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+      font-size: 1.3rem;
+    }
+    .gif-container {
+      max-width: 400px;
+      margin: 0 auto 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .gif-container img {
+      width: 100%;
+      display: block;
+    }
+    .info-links {
+      margin-top: 1rem;
+    }
+    .info-links a {
+      display: inline-block;
+      margin: 0.3rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .info-links a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /***************************************************
+     * 8. BUTTONS
+     ***************************************************/
+    .btn {
+      display: inline-block;
+      background: var(--accent-color);
+      color: #000;
+      padding: 0.8rem 2rem;
+      border-radius: var(--btn-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+    }
+
+    /***************************************************
+     * 9. FOOTER
+     ***************************************************/
+    footer {
+      background: #0a0a0a;
+      padding: 2rem;
+      text-align: center;
+    }
+    .heart { color: red; }
+
+    /***************************************************
+     * 10. POPUP BUBBLE
+     ***************************************************/
+    #popup-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fff;
+      border: 2px solid #007BFF;
+      border-radius: 10px;
+      padding: 15px 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      animation: slideIn 1s ease-out, bubblePulse 2.5s infinite;
+      z-index: 2000;
+      cursor: pointer;
+    }
+    #popup-bubble p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+    #popup-bubble a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #popup-bubble a:hover {
+      text-decoration: underline;
+    }
+    #popup-close {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      font-size: 18px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /***************************************************
+     * 11. KEYFRAME ANIMATIONS
+     ***************************************************/
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-15px); }
+      60% { transform: translateY(-7px); }
+    }
+    @keyframes slideIn {
+      0% {
+        transform: translateX(100%) translateY(100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes bubblePulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(0,123,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <a href="#" class="nav-link">
+            <span class="logo-text">Fun With Finance</span>
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <ul class="nav-menu">
+          <!-- Anchor links jump to sections below -->
+          <li><a href="#hero" class="nav-link">Home</a></li>
+          <li><a href="#mutual-funds" class="nav-link">Mutual Funds</a></li>
+          <li><a href="#sip" class="nav-link">SIP</a></li>
+          <li><a href="#pension-yojna" class="nav-link">Pension Yojna</a></li>
+          <li><a href="#ppf" class="nav-link">PPF</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="hero wave-bottom">
+    <div class="hero-content">
+      <h1>Investing Guide</h1>
+      <p>
+        Explore the basics of investing with easy, step-by-step instructions and helpful links!
+      </p>
+      <!-- CTA button to jump to first tutorial section -->
+      <a href="#mutual-funds" class="btn">Start Learning</a>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- MUTUAL FUNDS -->
+    <section id="mutual-funds" class="content-section wave-top wave-bottom">
+      <div class="container">
+        <h2 class="big-heading">1) Mutual Funds</h2>
+        
+        <!-- STEP 1 -->
+        <div class="tutorial-step">
+          <h3>Step 1: Understand the Basics</h3>
+          <div class="gif-container">
+            <!-- Placeholder GIF: Replace with your own link if desired -->
+            <img src="https://media.giphy.com/media/3o6ZsRN7fFF0h7FfS8/giphy.gif" alt="Mutual Funds GIF">
+          </div>
+          <p>
+            A mutual fund pools money from many investors to invest in stocks, bonds, or other assets. 
+            It's managed by professional fund managers. Great for beginners!
+          </p>
+          <div class="info-links">
+            <a href="https://www.amfiindia.com/" target="_blank" rel="noopener">AMFI (India)</a>
+            <a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener">SEC Investor (US)</a>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="tutorial-step">
+          <h3>Step 2: Choose a Fund</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/pUx6QK2dTSdBS/giphy.gif" alt="Choose Mutual Fund GIF">
+          </div>
+          <p>
+            Research different AMC (Asset Management Companies). Compare performance, fees (expense ratio), and objectives 
+            to align with your goals.
+          </p>
+          <div class="info-links">
+            <a href="https://www.morningstar.com/" target="_blank" rel="noopener">Morningstar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIP -->
+    <section id="sip" class="content-section wave-top wave-bottom">
+      <div class="container">
+        <h2 class="big-heading">2) SIP (Systematic Investment Plan)</h2>
+        
+        <!-- STEP 1 -->
+        <div class="tutorial-step">
+          <h3>Step 1: Set a Monthly Amount</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif" alt="SIP Step GIF">
+          </div>
+          <p>
+            SIP allows you to invest a fixed amount regularly (e.g., monthly) into a mutual fund or other instrument. 
+            Decide how much you can invest comfortably.
+          </p>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="tutorial-step">
+          <h3>Step 2: Automate It</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Auto Debit GIF">
+          </div>
+          <p>
+            Link your bank account and set up an auto-debit. This helps maintain consistency and build wealth over time.
+          </p>
+          <div class="info-links">
+            <a href="https://www.etmoney.com/sip" target="_blank" rel="noopener">SIP Examples</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PENSION YOJNA -->
+    <section id="pension-yojna" class="content-section wave-top wave-bottom">
+      <div class="container">
+        <h2 class="big-heading">3) Pension Yojna</h2>
+        
+        <!-- STEP 1 -->
+        <div class="tutorial-step">
+          <h3>Step 1: Pick a Government Scheme</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/l0K4mF5X7UNLJ3ZN2/giphy.gif" alt="Pension Yojna GIF">
+          </div>
+          <p>
+            If you’re in India, consider Atal Pension Yojana or the National Pension System (NPS). 
+            Compare coverage, monthly contributions, and eventual returns.
+          </p>
+          <div class="info-links">
+            <a href="https://enps.nsdl.com/" target="_blank" rel="noopener">NPS Official Site</a>
+            <a href="https://www.india.gov.in/spotlight/atal-pension-yojana" target="_blank" rel="noopener">Atal Pension Yojana</a>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="tutorial-step">
+          <h3>Step 2: Registration & KYC</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/nGEoZxPx0E6p2/giphy.gif" alt="Bank Registration GIF">
+          </div>
+          <p>
+            You can apply online or visit your bank. Provide KYC (ID/address proof). 
+            Decide your monthly or annual contributions based on your goals.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PPF -->
+    <section id="ppf" class="content-section wave-top wave-bottom">
+      <div class="container">
+        <h2 class="big-heading">4) PPF (Public Provident Fund)</h2>
+        
+        <!-- STEP 1 -->
+        <div class="tutorial-step">
+          <h3>Step 1: Eligibility & Documents</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/3o7btT1TJEJNs3Hus0/giphy.gif" alt="PPF Document GIF">
+          </div>
+          <p>
+            In India, most residents are eligible. Have ID, address proof, and other KYC docs ready. 
+            PPF has a 15-year lock-in but offers tax benefits.
+          </p>
+          <div class="info-links">
+            <a href="https://www.india.gov.in/spotlight/public-provident-fund-ppf" target="_blank" rel="noopener">Official PPF Info</a>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="tutorial-step">
+          <h3>Step 2: Open the Account</h3>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/3o6nUOuLGDLkXgjCze/giphy.gif" alt="Bank GIF">
+          </div>
+          <p>
+            Open a PPF at designated banks or post offices. Some allow online applications. 
+            Deposit a minimum each year to keep the account active.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p><strong>Fun With Finance</strong> — Empowering Financial Literacy</p>
+      <p>
+        &copy; <span id="year"></span> All Rights Reserved.
+        <br />
+        Built with <span class="heart" aria-label="love">&hearts;</span> by Aarav Makhija
+      </p>
+      <p style="margin-top:1rem; font-size:0.8rem; color: #ccc;">
+        <strong>Disclaimer:</strong> The information on this page is for educational purposes only 
+        and does not constitute financial or legal advice. Always consult a professional.
+      </p>
+    </div>
+  </footer>
+
+  <!-- HELP BUBBLE -->
+  <div id="popup-bubble">
+    <span id="popup-close">×</span>
+    <p>Need quick info? <a href="#mutual-funds">Jump to Tutorials</a></p>
+  </div>
+
+  <!-- INLINE JS -->
+  <script>
+    /*********************************************
+     * 1. Update year in footer
+     *********************************************/
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /*********************************************
+     * 2. Hamburger Menu Toggle
+     *********************************************/
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !expanded);
+      navMenu.classList.toggle('active');
+    });
+
+    // Close the mobile nav if link is clicked
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', false);
+        }
+      });
+    });
+
+    /*********************************************
+     * 3. Popup Bubble
+     *********************************************/
+    const popupBubble = document.getElementById('popup-bubble');
+    const popupClo
