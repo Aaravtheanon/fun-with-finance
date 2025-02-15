@@ -621,4 +621,11 @@
      * 3. Popup Bubble
      *********************************************/
     const popupBubble = document.getElementById('popup-bubble');
-    const popupClo
+    const popupClose = document.getElementById('popup-close');
+
+    popupClose.addEventListener('click', () => {
+      popupBubble.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
