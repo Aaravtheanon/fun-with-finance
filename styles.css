@@ -273,7 +273,7 @@
        flex-direction: column;
        align-items: center;
        gap: 1rem;
-       padding: 2rem 0; /* Increased padding for larger clickable area */
+       padding: 4rem 0; /* Increased padding for larger clickable area */
        width: 100%;
        position: fixed;
        top: var(--nav-height);
