@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fun With Finance | Investing Guide</title>
+  <title>Fun With Finance | The Ultimate Investing Guide</title>
 
   <!-- GOOGLE FONTS -->
   <link
@@ -14,7 +14,7 @@
   <!-- INLINE CSS -->
   <style>
     /***************************************************
-     * 1. RESET & GLOBAL
+     * RESET & GLOBAL
      ***************************************************/
     *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -31,7 +31,7 @@
     a { text-decoration: none; }
 
     /***************************************************
-     * 2. CSS VARIABLES
+     * CSS VARIABLES
      ***************************************************/
     :root {
       --nav-height: 70px;
@@ -45,7 +45,7 @@
     }
 
     /***************************************************
-     * 3. NAVBAR & HAMBURGER
+     * NAVBAR & HAMBURGER
      ***************************************************/
     .navbar {
       position: fixed; top: 0; width: 100%; height: var(--nav-height);
@@ -74,7 +74,7 @@
       gap: 2rem;
     }
     .nav-link {
-      font-weight: 600;
+      font-weight: 600; 
       color: var(--text-color);
       padding: 0.5rem 0;
       position: relative;
@@ -106,7 +106,7 @@
       transition: all 0.3s ease;
     }
 
-    /* MOBILE NAV */
+    /* Mobile nav */
     @media (max-width: 768px) {
       .nav-menu { 
         display: none; 
@@ -125,7 +125,7 @@
     }
 
     /***************************************************
-     * 4. WAVE DIVIDERS
+     * WAVE DIVIDERS
      ***************************************************/
     .wave-top {
       position: relative;
@@ -166,7 +166,7 @@
     }
 
     /***************************************************
-     * 5. HERO
+     * HERO
      ***************************************************/
     .hero {
       margin-top: var(--nav-height);
@@ -211,7 +211,7 @@
     }
 
     /***************************************************
-     * 6. CONTENT SECTION & LAYOUT
+     * CONTENT SECTIONS
      ***************************************************/
     .content-section {
       padding: 4rem 2rem;
@@ -234,7 +234,7 @@
     }
 
     /***************************************************
-     * 7. TUTORIAL STYLES
+     * TUTORIALS & TOGGLES
      ***************************************************/
     .tutorial-step {
       background: rgba(255, 255, 255, 0.07);
@@ -243,6 +243,7 @@
       margin: 2rem 0;
       box-shadow: 0 10px 20px rgba(0,0,0,0.4);
       animation: fadeInUp 1.2s ease;
+      text-align: left; /* So toggles read more naturally */
     }
     .tutorial-step h3 {
       margin-bottom: 1rem;
@@ -251,7 +252,7 @@
     }
     .gif-container {
       max-width: 400px;
-      margin: 0 auto 1rem;
+      margin: 1rem auto;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
@@ -275,8 +276,34 @@
       text-decoration: underline;
     }
 
+    /* ADVANCED TIPS TOGGLE */
+    .toggle-btn {
+      background: var(--accent-color);
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--btn-radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      border: none;
+      margin-top: 1rem;
+    }
+    .toggle-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .advanced-tips {
+      display: none;
+      margin-top: 1rem;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      animation: fadeInUp 0.8s ease;
+    }
+
     /***************************************************
-     * 8. BUTTONS
+     * BUTTONS
      ***************************************************/
     .btn {
       display: inline-block;
@@ -296,7 +323,7 @@
     }
 
     /***************************************************
-     * 9. FOOTER
+     * FOOTER
      ***************************************************/
     footer {
       background: #0a0a0a;
@@ -306,7 +333,7 @@
     .heart { color: red; }
 
     /***************************************************
-     * 10. POPUP BUBBLE
+     * POPUP BUBBLE
      ***************************************************/
     #popup-bubble {
       position: fixed;
@@ -344,7 +371,7 @@
     }
 
     /***************************************************
-     * 11. KEYFRAME ANIMATIONS
+     * KEYFRAME ANIMATIONS
      ***************************************************/
     @keyframes spin {
       0% { transform: rotate(0deg); }
@@ -399,7 +426,7 @@
           <span class="bar"></span>
         </button>
         <ul class="nav-menu">
-          <!-- Anchor links jump to sections below -->
+          <!-- Jump links to each tutorial section -->
           <li><a href="#hero" class="nav-link">Home</a></li>
           <li><a href="#mutual-funds" class="nav-link">Mutual Funds</a></li>
           <li><a href="#sip" class="nav-link">SIP</a></li>
@@ -413,11 +440,11 @@
   <!-- HERO SECTION -->
   <section id="hero" class="hero wave-bottom">
     <div class="hero-content">
-      <h1>Investing Guide</h1>
+      <h1>The Ultimate Investing Guide</h1>
       <p>
-        Explore the basics of investing with easy, step-by-step instructions and helpful links!
+        Dive into the essential steps for investing success—optimized for phone & laptop, with interactive features!
       </p>
-      <!-- CTA button to jump to first tutorial section -->
+      <!-- CTA button to jump to first tutorial -->
       <a href="#mutual-funds" class="btn">Start Learning</a>
     </div>
   </section>
@@ -431,33 +458,51 @@
         
         <!-- STEP 1 -->
         <div class="tutorial-step">
-          <h3>Step 1: Understand the Basics</h3>
+          <h3>Step 1: Learn the Basics</h3>
           <div class="gif-container">
-            <!-- Placeholder GIF: Replace with your own link if desired -->
-            <img src="https://media.giphy.com/media/3o6ZsRN7fFF0h7FfS8/giphy.gif" alt="Mutual Funds GIF">
+            <img src="https://media.giphy.com/media/3o6ZsRN7fFF0h7FfS8/giphy.gif" alt="Mutual Fund Basics GIF">
           </div>
           <p>
-            A mutual fund pools money from many investors to invest in stocks, bonds, or other assets. 
-            It's managed by professional fund managers. Great for beginners!
+            Mutual funds pool money from many investors to buy stocks, bonds, or other assets. 
+            They’re managed by professionals. Ideal for beginners wanting diversification.
           </p>
           <div class="info-links">
+            <a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener">SEC (USA)</a>
             <a href="https://www.amfiindia.com/" target="_blank" rel="noopener">AMFI (India)</a>
-            <a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener">SEC Investor (US)</a>
+          </div>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="mf-step1-advanced">Advanced Tips</button>
+          <div id="mf-step1-advanced" class="advanced-tips">
+            <p>
+              Look for the fund's **expense ratio** (fees). A lower expense ratio often means higher net returns. 
+              Also, check **historic performance** over at least 5 years, but remember past performance doesn’t guarantee future results.
+            </p>
           </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="tutorial-step">
-          <h3>Step 2: Choose a Fund</h3>
+          <h3>Step 2: Choose a Fund House</h3>
           <div class="gif-container">
-            <img src="https://media.giphy.com/media/pUx6QK2dTSdBS/giphy.gif" alt="Choose Mutual Fund GIF">
+            <img src="https://media.giphy.com/media/pUx6QK2dTSdBS/giphy.gif" alt="Choosing AMC GIF">
           </div>
           <p>
-            Research different AMC (Asset Management Companies). Compare performance, fees (expense ratio), and objectives 
-            to align with your goals.
+            Each Asset Management Company (AMC) offers multiple schemes. 
+            Align your risk appetite—like equity, debt, or hybrid funds—to your goals.
           </p>
           <div class="info-links">
             <a href="https://www.morningstar.com/" target="_blank" rel="noopener">Morningstar</a>
+          </div>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="mf-step2-advanced">Advanced Tips</button>
+          <div id="mf-step2-advanced" class="advanced-tips">
+            <p>
+              Check the **fund manager’s track record**. A consistent manager 
+              with strong performance across market cycles is a good sign. 
+              Also, read the **Scheme Information Document (SID)** to understand constraints and objectives.
+            </p>
           </div>
         </div>
       </div>
@@ -470,27 +515,46 @@
         
         <!-- STEP 1 -->
         <div class="tutorial-step">
-          <h3>Step 1: Set a Monthly Amount</h3>
+          <h3>Step 1: Fix a Monthly Investment</h3>
           <div class="gif-container">
-            <img src="https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif" alt="SIP Step GIF">
+            <img src="https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif" alt="SIP Decide GIF">
           </div>
           <p>
-            SIP allows you to invest a fixed amount regularly (e.g., monthly) into a mutual fund or other instrument. 
-            Decide how much you can invest comfortably.
+            A SIP lets you invest a fixed amount at regular intervals (e.g., monthly) into a mutual fund. 
+            This approach fosters discipline and averages out market fluctuations.
           </p>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="sip-step1-advanced">Advanced Tips</button>
+          <div id="sip-step1-advanced" class="advanced-tips">
+            <p>
+              Use a **SIP calculator** to project returns. Start small if you’re unsure. 
+              You can always **increase** your monthly amount as your income grows.
+            </p>
+          </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="tutorial-step">
-          <h3>Step 2: Automate It</h3>
+          <h3>Step 2: Automate Your Payments</h3>
           <div class="gif-container">
             <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Auto Debit GIF">
           </div>
           <p>
-            Link your bank account and set up an auto-debit. This helps maintain consistency and build wealth over time.
+            Link your bank account for an auto-debit on a set date. This ensures you never miss a contribution 
+            and helps build long-term wealth systematically.
           </p>
           <div class="info-links">
-            <a href="https://www.etmoney.com/sip" target="_blank" rel="noopener">SIP Examples</a>
+            <a href="https://www.etmoney.com/sip/calculator" target="_blank" rel="noopener">SIP Calculator</a>
+          </div>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="sip-step2-advanced">Advanced Tips</button>
+          <div id="sip-step2-advanced" class="advanced-tips">
+            <p>
+              Consider setting your SIP date just after your salary is credited to ensure you prioritize savings. 
+              Also, review your SIP annually—if your income rises, increase your monthly SIP proportionally.
+            </p>
           </div>
         </div>
       </div>
@@ -503,17 +567,27 @@
         
         <!-- STEP 1 -->
         <div class="tutorial-step">
-          <h3>Step 1: Pick a Government Scheme</h3>
+          <h3>Step 1: Select a Government Scheme</h3>
           <div class="gif-container">
             <img src="https://media.giphy.com/media/l0K4mF5X7UNLJ3ZN2/giphy.gif" alt="Pension Yojna GIF">
           </div>
           <p>
-            If you’re in India, consider Atal Pension Yojana or the National Pension System (NPS). 
-            Compare coverage, monthly contributions, and eventual returns.
+            In India, you can explore **Atal Pension Yojana** or the **National Pension System (NPS)**. 
+            Each has different contribution tiers and final payouts.
           </p>
           <div class="info-links">
-            <a href="https://enps.nsdl.com/" target="_blank" rel="noopener">NPS Official Site</a>
             <a href="https://www.india.gov.in/spotlight/atal-pension-yojana" target="_blank" rel="noopener">Atal Pension Yojana</a>
+            <a href="https://enps.nsdl.com/" target="_blank" rel="noopener">NPS Portal</a>
+          </div>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="py-step1-advanced">Advanced Tips</button>
+          <div id="py-step1-advanced" class="advanced-tips">
+            <p>
+              Compare **tax benefits** between NPS and APY. 
+              NPS often allows choosing equity/debt mix, letting you adjust the risk. 
+              Watch for any lock-in or partial withdrawal rules.
+            </p>
           </div>
         </div>
 
@@ -524,9 +598,18 @@
             <img src="https://media.giphy.com/media/nGEoZxPx0E6p2/giphy.gif" alt="Bank Registration GIF">
           </div>
           <p>
-            You can apply online or visit your bank. Provide KYC (ID/address proof). 
-            Decide your monthly or annual contributions based on your goals.
+            Apply online or at your bank. Provide KYC (ID, address proof). 
+            Decide on your monthly (or annual) contributions. This ensures you have a retirement fallback.
           </p>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="py-step2-advanced">Advanced Tips</button>
+          <div id="py-step2-advanced" class="advanced-tips">
+            <p>
+              Keep track of your **PRAN (Permanent Retirement Account Number)** if choosing NPS. 
+              Remember that early exits might incur penalties or partial withdrawal limits.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -538,29 +621,47 @@
         
         <!-- STEP 1 -->
         <div class="tutorial-step">
-          <h3>Step 1: Eligibility & Documents</h3>
+          <h3>Step 1: Eligibility & Lock-In</h3>
           <div class="gif-container">
-            <img src="https://media.giphy.com/media/3o7btT1TJEJNs3Hus0/giphy.gif" alt="PPF Document GIF">
+            <img src="https://media.giphy.com/media/3o7btT1TJEJNs3Hus0/giphy.gif" alt="PPF Lock-In GIF">
           </div>
           <p>
-            In India, most residents are eligible. Have ID, address proof, and other KYC docs ready. 
-            PPF has a 15-year lock-in but offers tax benefits.
+            In India, PPF has a **15-year** lock-in. You can extend in 5-year blocks. 
+            It’s government-backed, offering attractive interest rates and tax benefits.
           </p>
           <div class="info-links">
-            <a href="https://www.india.gov.in/spotlight/public-provident-fund-ppf" target="_blank" rel="noopener">Official PPF Info</a>
+            <a href="https://www.india.gov.in/spotlight/public-provident-fund-ppf" target="_blank" rel="noopener">PPF Official Info</a>
+          </div>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="ppf-step1-advanced">Advanced Tips</button>
+          <div id="ppf-step1-advanced" class="advanced-tips">
+            <p>
+              You can make **partial withdrawals** after the 6th year for emergencies. 
+              Also, remember you must deposit at least the minimum amount every financial year to keep it active.
+            </p>
           </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="tutorial-step">
-          <h3>Step 2: Open the Account</h3>
+          <h3>Step 2: Open Your PPF Account</h3>
           <div class="gif-container">
-            <img src="https://media.giphy.com/media/3o6nUOuLGDLkXgjCze/giphy.gif" alt="Bank GIF">
+            <img src="https://media.giphy.com/media/3o6nUOuLGDLkXgjCze/giphy.gif" alt="PPF Bank GIF">
           </div>
           <p>
-            Open a PPF at designated banks or post offices. Some allow online applications. 
-            Deposit a minimum each year to keep the account active.
+            Visit a bank or post office (some allow online application). 
+            Maintain yearly deposits (min ₹500, up to ₹1.5 lakh in India) to earn interest and enjoy tax deductions.
           </p>
+
+          <!-- ADVANCED TIPS TOGGLE -->
+          <button class="toggle-btn" data-target="ppf-step2-advanced">Advanced Tips</button>
+          <div id="ppf-step2-advanced" class="advanced-tips">
+            <p>
+              If possible, deposit lumpsums near the start of the financial year to maximize interest. 
+              Track changing interest rates every quarter, as the government reviews them.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -575,9 +676,9 @@
         <br />
         Built with <span class="heart" aria-label="love">&hearts;</span> by Aarav Makhija
       </p>
-      <p style="margin-top:1rem; font-size:0.8rem; color: #ccc;">
-        <strong>Disclaimer:</strong> The information on this page is for educational purposes only 
-        and does not constitute financial or legal advice. Always consult a professional.
+      <p style="margin-top:1rem; font-size:0.85rem; color: #ccc;">
+        <strong>Disclaimer:</strong> This guide is for educational purposes only and not official financial or legal advice. 
+        Always consult a qualified professional before making investment decisions.
       </p>
     </div>
   </footer>
@@ -585,19 +686,19 @@
   <!-- HELP BUBBLE -->
   <div id="popup-bubble">
     <span id="popup-close">×</span>
-    <p>Need quick info? <a href="#mutual-funds">Jump to Tutorials</a></p>
+    <p>Need quick tips? <a href="#mutual-funds">Jump to Tutorials</a></p>
   </div>
 
   <!-- INLINE JS -->
   <script>
-    /*********************************************
-     * 1. Update year in footer
-     *********************************************/
+    /**************************************************
+     * 1. Update Year in Footer
+     **************************************************/
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /*********************************************
+    /**************************************************
      * 2. Hamburger Menu Toggle
-     *********************************************/
+     **************************************************/
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
 
@@ -617,14 +718,33 @@
       });
     });
 
-    /*********************************************
+    /**************************************************
      * 3. Popup Bubble
-     *********************************************/
+     **************************************************/
     const popupBubble = document.getElementById('popup-bubble');
     const popupClose = document.getElementById('popup-close');
 
     popupClose.addEventListener('click', () => {
       popupBubble.style.display = 'none';
+    });
+
+    /**************************************************
+     * 4. Toggle "Advanced Tips" sections
+     **************************************************/
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+    toggleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const advTips = document.getElementById(targetId);
+
+        // Toggle display
+        if (advTips.style.display === 'block') {
+          advTips.style.display = 'none';
+        } else {
+          advTips.style.display = 'block';
+        }
+      });
     });
   </script>
 </body>
